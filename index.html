@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRAVAFILT S.A. - Sistema Integral de Gestión de Cargadoras (Seguridad y Auditoría Avanzada)</title>
+    <title>GRAVAFILT S.A. - Sistema Integral de Gestión de Cargadoras (Control Total e Insumos)</title>
     <!-- Tailwind CSS para diseño moderno, responsivo y profesional -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js para paneles funcionales e interactivos -->
@@ -71,7 +71,7 @@
                     <button onclick="switchTab('tab-horometros')" id="nav-horometros" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-700 hover:text-white transition-all">Horómetros y Tareas Multi-Registro</button>
                     <button onclick="switchTab('tab-surtidor')" id="nav-surtidor" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-700 hover:text-white transition-all">Surtidor Gasoil</button>
                     <button onclick="switchTab('tab-fallas')" id="nav-fallas" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-700 hover:text-white transition-all">Fallas y Mantenimiento</button>
-                    <button onclick="switchTab('tab-compras')" id="nav-compras" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-700 hover:text-white transition-all">Compras y Stock (Repuestos)</button>
+                    <button onclick="switchTab('tab-compras')" id="nav-compras" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-700 hover:text-white transition-all">Compras y Stock (Insumos & Repuestos)</button>
                 </nav>
                 <div class="flex items-center space-x-3">
                     <div id="dolar-bna-container" class="hidden md:flex items-center bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs">
@@ -103,7 +103,7 @@
                         <h2 class="text-xl font-bold text-white flex items-center">
                             <i class="fa-solid fa-gauge-high text-amber-500 mr-2"></i> Panel Principal de Administración (Acceso Exclusivo Gerencial)
                         </h2>
-                        <p class="text-xs text-slate-400">Control maestro, analítica de horómetros, simuladores de consumo, costos, matriz de repuestos y consola de corrección (Refresh).</p>
+                        <p class="text-xs text-slate-400">Control maestro, analítica de horómetros, simuladores de consumo, costos, stock sensible de gasoil, matriz de repuestos y consola de corrección (Refresh).</p>
                     </div>
                     <div class="flex flex-wrap gap-2">
                         <button onclick="abrirModalRefreshMaster()" class="bg-amber-600 hover:bg-amber-700 text-slate-950 font-bold px-4 py-2 rounded-lg text-xs transition-all shadow flex items-center">
@@ -130,11 +130,11 @@
                     </div>
                     <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl">
                         <div class="flex items-center justify-between text-slate-400 text-xs mb-1 font-semibold uppercase">
-                            <span>Stock Gasoil Batan</span>
+                            <span>Stock Gasoil Batan (Sensible)</span>
                             <i class="fa-solid fa-gas-pump text-amber-500"></i>
                         </div>
                         <div id="kpi-stock-gasoil" class="text-2xl font-black text-amber-400">0.0 lts</div>
-                        <div class="text-xs text-slate-400 mt-1">Inicializado en 0 por política de planta</div>
+                        <div class="text-xs text-slate-400 mt-1">Crítico para matriz de costeo</div>
                     </div>
                     <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl">
                         <div class="flex items-center justify-between text-slate-400 text-xs mb-1 font-semibold uppercase">
@@ -507,14 +507,65 @@
                 </div>
             </div>
 
-            <!-- ================= TAB: COMPRAS Y STOCK (REPUESTOS Y FOTO-REFERENCIA) ================= -->
+            <!-- ================= TAB: COMPRAS Y STOCK (INSUMOS, GASOIL Y REPUESTOS) ================= -->
             <div id="tab-compras" class="tab-content space-y-6">
-                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 max-w-4xl mx-auto space-y-6">
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 max-w-5xl mx-auto space-y-6">
                     <div>
                         <h2 class="text-lg font-bold text-white flex items-center">
-                            <i class="fa-solid fa-boxes-stacked text-amber-500 mr-2"></i> Micrositio de Compras, Stock y Simulación de Repuestos (Cero Base)
+                            <i class="fa-solid fa-boxes-stacked text-amber-500 mr-2"></i> Micrositio de Compras, Stock de Insumos (Gasoil) & Repuestos (Cero Base)
                         </h2>
-                        <p class="text-xs text-slate-400">Control de inventario crítico (stock inicial en 0), gestión de aceites, consumibles y reconocimiento fotográfico de piezas con proveedores y costos.</p>
+                        <p class="text-xs text-slate-400">Control crítico de stock de gasoil, consumos diarios, existencias activas e inventario integrado con reconocimiento fotográfico de piezas.</p>
+                    </div>
+
+                    <!-- Panel de Carga / Registro Rápido de Insumos y Stock de Gasoil -->
+                    <div class="bg-slate-900 p-5 rounded-xl border border-slate-700 space-y-4">
+                        <h3 class="font-bold text-sm text-amber-400 flex items-center">
+                            <i class="fa-solid fa-gas-pump mr-2"></i> Gestión de Insumos, Consumo Diario (lts/día) & Stock Sensible de Gasoil
+                        </h3>
+                        <p class="text-xs text-slate-400">Seleccione el insumo, configure el consumo estimado diario y actualice las existencias remanentes para alimentar la matriz de costeo.</p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Insumo / Combustible</label>
+                                <select id="insumo-select" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-xs">
+                                    <option value="Gasoil Granel - Batán Planta">Gasoil Granel - Batán Planta</option>
+                                    <option value="Aceite Hidráulico ISO 68">Aceite Hidráulico ISO 68</option>
+                                    <option value="Aceite Motor 15W40 Sintético">Aceite Motor 15W40 Sintético</option>
+                                    <option value="Grasa Lítica EP2 (Cartuchos)">Grasa Lítica EP2 (Cartuchos)</option>
+                                    <option value="Líquido Refrigerante Orgánico">Líquido Refrigerante Orgánico</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Consumo Diario Estimado (lts/día)</label>
+                                <input type="number" step="1" id="insumo-consumo-diario" placeholder="ej. 250" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Stock Remanente Actual (lts/u)</label>
+                                <input type="number" step="1" id="insumo-stock-remanente" placeholder="ej. 0 (Base 0)" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-xs">
+                            </div>
+                            <div class="flex items-end">
+                                <button onclick="actualizarInsumoStock()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold p-2.5 rounded-lg text-xs uppercase tracking-wider shadow">
+                                    Actualizar Insumo
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Tabla de Insumos Activos y Consumos -->
+                        <div class="overflow-x-auto pt-2">
+                            <table class="w-full text-left text-xs">
+                                <thead class="bg-slate-800 text-slate-400 uppercase">
+                                    <tr>
+                                        <th class="p-2.5">Insumo / Combustible</th>
+                                        <th class="p-2.5">Consumo Diario (lts/día)</th>
+                                        <th class="p-2.5">Stock Remanente (Existencia Activa)</th>
+                                        <th class="p-2.5">Estado Sensible Matriz</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla-insumos-consumos" class="divide-y divide-slate-800">
+                                    <tr><td colspan="4" class="p-3 text-center text-slate-500">Cargando matriz de insumos...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <!-- Panel de Compra de Repuestos y Análisis Fotográfico de Piezas -->
@@ -562,9 +613,9 @@
                         </div>
                     </div>
 
-                    <!-- Tabla de Existencias Actuales (Inicia en 0) -->
+                    <!-- Tabla de Existencias Generales en Planta -->
                     <div>
-                        <h3 class="font-bold text-sm text-white mb-3">Existencias Críticas en Planta (Base 0)</h3>
+                        <h3 class="font-bold text-sm text-white mb-3">Existencias y Repuestos Críticos en Planta</h3>
                         <div class="overflow-x-auto">
                             <table class="w-full text-left text-xs">
                                 <thead class="bg-slate-900 text-slate-400 uppercase">
@@ -576,7 +627,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="tabla-stock-actual" class="divide-y divide-slate-700">
-                                    <tr><td colspan="4" class="p-4 text-center text-slate-500">Cargando inventario base en 0...</td></tr>
+                                    <tr><td colspan="4" class="p-4 text-center text-slate-500">Cargando inventario base...</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -668,13 +719,13 @@
         let dbSurtidor = JSON.parse(localStorage.getItem('gf_surtidor_v2')) || [];
         let dbFallas = JSON.parse(localStorage.getItem('gf_fallas_v2')) || [];
         
-        // Política de stock inicial estricta en 0 según requerimiento
+        // Política de stock inicial estricta en 0 con matriz de consumos diarios e insumos
         let dbStock = JSON.parse(localStorage.getItem('gf_stock_v2')) || {
-            'Gasoil - Batán': 0,
-            'Aceite Hidráulico ISO 68': 0,
-            'Aceite Motor 15W40': 0,
-            'Filtros de Gasoil': 0,
-            'Neumáticos 23.5-25': 0
+            'Gasoil Granel - Batán Planta': { stock: 0, consumoDiario: 280, unidad: 'Litros' },
+            'Aceite Hidráulico ISO 68': { stock: 0, consumoDiario: 45, unidad: 'Litros' },
+            'Aceite Motor 15W40 Sintético': { stock: 0, consumoDiario: 30, unidad: 'Litros' },
+            'Grasa Lítica EP2 (Cartuchos)': { stock: 0, consumoDiario: 10, unidad: 'Cartuchos' },
+            'Líquido Refrigerante Orgánico': { stock: 0, consumoDiario: 15, unidad: 'Litros' }
         };
 
         let chartInstance = null;
@@ -821,18 +872,35 @@
                 operario: currentUser.name
             };
 
-            // Restar o descontar de batán
-            dbStock['Gasoil - Batán'] = Math.max(0, (dbStock['Gasoil - Batán'] || 0) - litros);
+            // Restar o descontar stock sensible de gasoil batán
+            if (dbStock['Gasoil Granel - Batán Planta']) {
+                dbStock['Gasoil Granel - Batán Planta'].stock = Math.max(0, dbStock['Gasoil Granel - Batán Planta'].stock - litros);
+            }
 
             dbSurtidor.push(nuevoDespacho);
             localStorage.setItem('gf_surtidor_v2', JSON.stringify(dbSurtidor));
             localStorage.setItem('gf_stock_v2', JSON.stringify(dbStock));
 
-            alert("¡Despacho de gasoil registrado, validado con foto y enviado al repositorio del administrador!");
+            alert("¡Despacho de gasoil registrado, validado con foto, descontado del stock sensible y enviado al administrador!");
             e.target.reset();
             fotoCabezalBase64 = "";
             document.getElementById('preview-foto').innerHTML = "Sin foto";
             actualizarTodoSistema();
+        }
+
+        // --- ACTUALIZAR INSUMO Y STOCK DESDE MICROSITIO COMPRAS ---
+        function actualizarInsumoStock() {
+            const insumoSel = document.getElementById('insumo-select').value;
+            const consumoNuevo = parseFloat(document.getElementById('insumo-consumo-diario').value);
+            const stockNuevo = parseFloat(document.getElementById('insumo-stock-remanente').value);
+
+            if (dbStock[insumoSel]) {
+                if (!isNaN(consumoNuevo)) dbStock[insumoSel].consumoDiario = consumoNuevo;
+                if (!isNaN(stockNuevo)) dbStock[insumoSel].stock = stockNuevo;
+                localStorage.setItem('gf_stock_v2', JSON.stringify(dbStock));
+                alert(`¡Insumo "${insumoSel}" actualizado correctamente en la matriz de stock y consumos!`);
+                actualizarTodoSistema();
+            }
         }
 
         // --- GESTIÓN DE FALLAS ---
@@ -926,11 +994,11 @@
                 dbSurtidor = [];
                 dbFallas = [];
                 dbStock = {
-                    'Gasoil - Batán': 0,
-                    'Aceite Hidráulico ISO 68': 0,
-                    'Aceite Motor 15W40': 0,
-                    'Filtros de Gasoil': 0,
-                    'Neumáticos 23.5-25': 0
+                    'Gasoil Granel - Batán Planta': { stock: 0, consumoDiario: 280, unidad: 'Litros' },
+                    'Aceite Hidráulico ISO 68': { stock: 0, consumoDiario: 45, unidad: 'Litros' },
+                    'Aceite Motor 15W40 Sintético': { stock: 0, consumoDiario: 30, unidad: 'Litros' },
+                    'Grasa Lítica EP2 (Cartuchos)': { stock: 0, consumoDiario: 10, unidad: 'Cartuchos' },
+                    'Líquido Refrigerante Orgánico': { stock: 0, consumoDiario: 15, unidad: 'Litros' }
                 };
                 cerrarModalRefreshMaster();
                 actualizarTodoSistema();
@@ -940,10 +1008,12 @@
 
         // --- ACTUALIZAR PANALES Y SIMULADORES ---
         function actualizarTodoSistema() {
-            // Actualizar KPIs Administrador (sumando totalHoras de multi-actividad)
+            // Stock actual sensible de gasoil para KPI
+            const stockGasoil = dbStock['Gasoil Granel - Batán Planta'] ? dbStock['Gasoil Granel - Batán Planta'].stock : 0;
             const totalHoras = dbHorometros.reduce((acc, curr) => acc + curr.totalHoras, 0);
+
             document.getElementById('kpi-total-horas').innerText = totalHoras.toFixed(1) + " hrs";
-            document.getElementById('kpi-stock-gasoil').innerText = (dbStock['Gasoil - Batán'] || 0).toFixed(1) + " lts";
+            document.getElementById('kpi-stock-gasoil').innerText = stockGasoil.toLocaleString() + " lts";
             document.getElementById('kpi-alertas-activas').innerText = dbFallas.filter(f => f.estado.includes("Pendiente")).length;
 
             // Tabla Costos por Máquina (Simulador Quirúrgico Pesos y USD)
@@ -1052,21 +1122,33 @@
             }
             document.getElementById('tabla-historial-fallas').innerHTML = htmlHistorialFallas;
 
-            // Tabla Stock Actual (Inicia en 0)
-            let htmlStock = "";
-            Object.keys(dbStock).forEach(item => {
-                const val = dbStock[item];
-                const unidadMedida = item.includes('Gasoil') || item.includes('Aceite') ? 'Litros' : (item.includes('Filtros') ? 'Unidades' : 'Pzas');
-                htmlStock += `
+            // Tabla Insumos y Consumos (Micrositio Compras)
+            let htmlInsumosConsumos = "";
+            let htmlStockGeneral = "";
+
+            Object.keys(dbStock).forEach(insumo => {
+                const item = dbStock[insumo];
+                htmlInsumosConsumos += `
                     <tr>
-                        <td class="p-2.5 font-bold text-white">${item}</td>
-                        <td class="p-2.5 text-amber-400 font-bold">${val.toLocaleString()}</td>
-                        <td class="p-2.5">${unidadMedida}</td>
+                        <td class="p-2.5 font-bold text-white">${insumo}</td>
+                        <td class="p-2.5 text-amber-400 font-semibold">${item.consumoDiario} ${item.unidad}/día</td>
+                        <td class="p-2.5 text-emerald-400 font-bold">${item.stock.toLocaleString()} ${item.unidad}</td>
+                        <td class="p-2.5"><span class="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Vinculado a Costeo</span></td>
+                    </tr>
+                `;
+
+                htmlStockGeneral += `
+                    <tr>
+                        <td class="p-2.5 font-bold text-white">${insumo}</td>
+                        <td class="p-2.5 text-amber-400 font-bold">${item.stock.toLocaleString()}</td>
+                        <td class="p-2.5">${item.unidad}</td>
                         <td class="p-2.5"><span class="text-slate-400 font-semibold">Base 0 (Control Planta)</span></td>
                     </tr>
                 `;
             });
-            document.getElementById('tabla-stock-actual').innerHTML = htmlStock;
+
+            document.getElementById('tabla-insumos-consumos').innerHTML = htmlInsumosConsumos;
+            document.getElementById('tabla-stock-actual').innerHTML = htmlStockGeneral;
         }
 
         function actualizarSimuladoresFinancieros() {
@@ -1117,12 +1199,17 @@
             const wsFallas = XLSX.utils.json_to_sheet(dbFallas);
             XLSX.utils.book_append_sheet(wb, wsFallas, "Fallas y Mantenimiento");
 
-            XLSX.writeFile(wb, "GRAVAFILT_Matriz_Costos_Cargadoras_V2.xlsx");
+            // Convertir objeto de stock a array para excel
+            const stockArray = Object.keys(dbStock).map(k => ({ Insumo: k, Stock: dbStock[k].stock, ConsumoDiario: dbStock[k].consumoDiario, Unidad: dbStock[k].unidad }));
+            const wsStock = XLSX.utils.json_to_sheet(stockArray);
+            XLSX.utils.book_append_sheet(wb, wsStock, "Insumos y Stock Sensible");
+
+            XLSX.writeFile(wb, "GRAVAFILT_Matriz_Costos_Cargadoras_V3.xlsx");
         }
 
         function exportarReporteCompleto() {
             exportarTodoExcel();
-            alert("¡Reporte consolidado exportado exitosamente a formato Excel con repositorio de imágenes y analítica completa!");
+            alert("¡Reporte consolidado exportado exitosamente a formato Excel con stock sensible de gasoil, insumos y repositorio de imágenes!");
         }
     </script>
 </body>
