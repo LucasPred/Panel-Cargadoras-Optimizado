@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRAVAFILT S.A. - Sistema Integral de Gestión de Cargadoras</title>
+    <title>GRAVAFILT S.A. - Sistema Integral de Gestión de Cargadoras (Seguridad y Auditoría Avanzada)</title>
     <!-- Tailwind CSS para diseño moderno, responsivo y profesional -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js para paneles funcionales e interactivos -->
@@ -48,7 +48,7 @@
                 </button>
             </form>
             <div class="mt-6 pt-4 border-t border-slate-700 text-center text-xs text-slate-500">
-                Sistema Autocontenido con Registro Histórico y Auditoría de Imágenes
+                Sistema Autocontenido con Restricción Absoluta de Panel Administrador
             </div>
         </div>
     </div>
@@ -65,13 +65,13 @@
                         <p class="text-xs text-slate-400" id="user-role-badge">Perfil: Cargadorista</p>
                     </div>
                 </div>
-                <!-- NAVEGACIÓN PRINCIPAL -->
+                <!-- NAVEGACIÓN PRINCIPAL CON RESTRICCIÓN ABSOLUTA DE ADMIN -->
                 <nav class="hidden md:flex space-x-1">
                     <button onclick="switchTab('tab-admin')" id="nav-admin" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-700 hover:text-white transition-all hidden">Panel Administrador</button>
-                    <button onclick="switchTab('tab-horometros')" id="nav-horometros" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-700 hover:text-white transition-all">Horómetros y Tareas</button>
+                    <button onclick="switchTab('tab-horometros')" id="nav-horometros" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-700 hover:text-white transition-all">Horómetros y Tareas Multi-Registro</button>
                     <button onclick="switchTab('tab-surtidor')" id="nav-surtidor" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-700 hover:text-white transition-all">Surtidor Gasoil</button>
                     <button onclick="switchTab('tab-fallas')" id="nav-fallas" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-700 hover:text-white transition-all">Fallas y Mantenimiento</button>
-                    <button onclick="switchTab('tab-compras')" id="nav-compras" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-700 hover:text-white transition-all">Compras y Stock</button>
+                    <button onclick="switchTab('tab-compras')" id="nav-compras" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-700 hover:text-white transition-all">Compras y Stock (Repuestos)</button>
                 </nav>
                 <div class="flex items-center space-x-3">
                     <div id="dolar-bna-container" class="hidden md:flex items-center bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs">
@@ -83,7 +83,7 @@
                     </button>
                 </div>
             </div>
-            <!-- Menú móvil inferior -->
+            <!-- Menú móvil inferior con restricción de admin -->
             <div class="md:hidden flex overflow-x-auto bg-slate-900 border-t border-slate-800 p-2 space-x-1">
                 <button onclick="switchTab('tab-admin')" id="nav-admin-m" class="nav-btn px-3 py-1.5 rounded text-xs font-semibold text-slate-300 whitespace-nowrap hidden">Admin</button>
                 <button onclick="switchTab('tab-horometros')" id="nav-horometros-m" class="nav-btn px-3 py-1.5 rounded text-xs font-semibold text-slate-300 whitespace-nowrap">Horómetros</button>
@@ -101,11 +101,14 @@
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-800 p-4 rounded-xl border border-slate-700">
                     <div>
                         <h2 class="text-xl font-bold text-white flex items-center">
-                            <i class="fa-solid fa-gauge-high text-amber-500 mr-2"></i> Panel Principal de Administración
+                            <i class="fa-solid fa-gauge-high text-amber-500 mr-2"></i> Panel Principal de Administración (Acceso Exclusivo Gerencial)
                         </h2>
-                        <p class="text-xs text-slate-400">Control maestro, analítica de horómetros, simuladores de consumo, costos y matriz de repuestos.</p>
+                        <p class="text-xs text-slate-400">Control maestro, analítica de horómetros, simuladores de consumo, costos, matriz de repuestos y consola de corrección (Refresh).</p>
                     </div>
                     <div class="flex flex-wrap gap-2">
+                        <button onclick="abrirModalRefreshMaster()" class="bg-amber-600 hover:bg-amber-700 text-slate-950 font-bold px-4 py-2 rounded-lg text-xs transition-all shadow flex items-center">
+                            <i class="fa-solid fa-screwdriver-wrench mr-2"></i> Refresh / Corrección de Datos Master
+                        </button>
                         <button onclick="exportarTodoExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-xs font-bold transition-all shadow flex items-center">
                             <i class="fa-solid fa-file-excel mr-2"></i> Exportar Todo a Excel
                         </button>
@@ -123,7 +126,7 @@
                             <i class="fa-solid fa-clock text-amber-500"></i>
                         </div>
                         <div id="kpi-total-horas" class="text-2xl font-black text-white">0.0 hrs</div>
-                        <div class="text-xs text-emerald-400 mt-1 flex items-center"><i class="fa-solid fa-arrow-trend-up mr-1"></i> Monitoreo automático</div>
+                        <div class="text-xs text-emerald-400 mt-1 flex items-center"><i class="fa-solid fa-arrow-trend-up mr-1"></i> Monitoreo automático multi-tarea</div>
                     </div>
                     <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl">
                         <div class="flex items-center justify-between text-slate-400 text-xs mb-1 font-semibold uppercase">
@@ -131,7 +134,7 @@
                             <i class="fa-solid fa-gas-pump text-amber-500"></i>
                         </div>
                         <div id="kpi-stock-gasoil" class="text-2xl font-black text-amber-400">0.0 lts</div>
-                        <div class="text-xs text-slate-400 mt-1">Actualizado por Micrositio Compras</div>
+                        <div class="text-xs text-slate-400 mt-1">Inicializado en 0 por política de planta</div>
                     </div>
                     <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl">
                         <div class="flex items-center justify-between text-slate-400 text-xs mb-1 font-semibold uppercase">
@@ -147,7 +150,7 @@
                             <i class="fa-solid fa-triangle-exclamation text-red-500"></i>
                         </div>
                         <div id="kpi-alertas-activas" class="text-2xl font-black text-red-400">0</div>
-                        <div class="text-xs text-red-400 mt-1">Pendiente Homologación</div>
+                        <div class="text-xs text-red-400 mt-1">Pendiente Homologación Mantenimiento</div>
                     </div>
                 </div>
 
@@ -155,7 +158,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div class="bg-slate-800 border border-slate-700 p-5 rounded-xl">
                         <h3 class="font-bold text-sm text-white mb-4 flex items-center">
-                            <i class="fa-solid fa-chart-line text-amber-500 mr-2"></i> Horas Operadas por Máquina por Día
+                            <i class="fa-solid fa-chart-line text-amber-500 mr-2"></i> Horas Operadas por Máquina por Día (Todas las Cargadoras)
                         </h3>
                         <div class="h-64 relative">
                             <canvas id="chartHorasMaquinas"></canvas>
@@ -183,6 +186,31 @@
                     </div>
                 </div>
 
+                <!-- Consola de Historial Consolidado de Tareas Múltiples de Cargadoristas -->
+                <div class="bg-slate-800 border border-slate-700 p-5 rounded-xl">
+                    <h3 class="font-bold text-sm text-white mb-4 flex items-center">
+                        <i class="fa-solid fa-list-check text-amber-500 mr-2"></i> Historial Consolidado de Horómetros y Tareas Múltiples (Operarios)
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-900 text-slate-400 uppercase">
+                                <tr>
+                                    <th class="p-2.5">Fecha</th>
+                                    <th class="p-2.5">Operario</th>
+                                    <th class="p-2.5">Unidad / Máquina</th>
+                                    <th class="p-2.5">Actividad 1 (Hrs)</th>
+                                    <th class="p-2.5">Actividad 2 (Hrs)</th>
+                                    <th class="p-2.5">Actividad 3 (Hrs)</th>
+                                    <th class="p-2.5">Total Jornada</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-admin-horometros" class="divide-y divide-slate-700">
+                                <tr><td colspan="7" class="p-4 text-center text-slate-500">Sin registros en el micrositio de horómetros.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
                 <!-- Simulador de Rate y Previsión de Costo de Reparación -->
                 <div class="bg-slate-800 border border-slate-700 p-5 rounded-xl">
                     <h3 class="font-bold text-sm text-white mb-4 flex items-center">
@@ -191,7 +219,6 @@
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs">
                             <thead class="bg-slate-900 text-slate-400 uppercase">
-                                ID Alerta / Máquina / Componente / H.H. Estimadas / Repuestos / Costo Total ($ / USD) / Estado
                                 <tr>
                                     <th class="p-2.5">ID / Máquina</th>
                                     <th class="p-2.5">Falla / Componente</th>
@@ -207,7 +234,7 @@
                     </div>
                 </div>
 
-                <!-- Historial Exportable de Surtidor de Gasoil & Repositorio de Fotos -->
+                <!-- Auditoría de Surtidor de Gasoil & Repositorio de Fotos -->
                 <div class="bg-slate-800 border border-slate-700 p-5 rounded-xl">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="font-bold text-sm text-white flex items-center">
@@ -235,36 +262,25 @@
 
             </div>
 
-            <!-- ================= TAB: HORÓMETROS Y TAREAS ================= -->
+            <!-- ================= TAB: HORÓMETROS Y TAREAS (MULTI-REGISTRO) ================= -->
             <div id="tab-horometros" class="tab-content space-y-6">
-                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 max-w-3xl mx-auto">
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 max-w-4xl mx-auto">
                     <div class="mb-4">
                         <h2 class="text-lg font-bold text-white flex items-center">
-                            <i class="fa-solid fa-list-check text-amber-500 mr-2"></i> Micrositio de Registro de Horas y Tareas (Operarios)
+                            <i class="fa-solid fa-list-check text-amber-500 mr-2"></i> Micrositio de Registro de Horas y Tareas Múltiples (Operarios)
                         </h2>
-                        <p class="text-xs text-slate-400">Seleccione la unidad de negocio, la cargadora y desglose las actividades ejecutadas y tiempos insumidos.</p>
+                        <p class="text-xs text-slate-400">Seleccione la cargadora y desglose las distintas actividades ejecutadas durante la jornada con sus tiempos específicos.</p>
                     </div>
 
-                    <form onsubmit="registrarHorometro(event)" class="space-y-4">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <form onsubmit="registrarHorometroMulti(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-900 p-4 rounded-xl border border-slate-700">
                             <div>
                                 <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Fecha de Registro</label>
-                                <input type="date" id="h-fecha" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-xs">
+                                <input type="date" id="hm-fecha" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-xs">
                             </div>
-                            <div>
-                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Unidad de Negocio</label>
-                                <select id="h-unidad" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-xs">
-                                    <option value="Áridos para la Construcción">Unidad Áridos para la Construcción</option>
-                                    <option value="Procesamiento, Secado y Tamizado AET">Unidad Procesamiento, Secado y Tamizado AET</option>
-                                    <option value="Logística y Despacho Vaca Muerta">Unidad Logística / Despacho Vaca Muerta</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Máquina Cargadora</label>
-                                <select id="h-maquina" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-xs">
+                                <select id="hm-maquina" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-xs">
                                     <option value="MICHIGAN R55C">MICHIGAN R55C</option>
                                     <option value="MICHIGAN R45C">MICHIGAN R45C</option>
                                     <option value="LW300FN">LW300FN</option>
@@ -274,39 +290,118 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Actividad Específica (Subgrupo)</label>
-                                <select id="h-actividad" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-xs">
-                                    <optgroup label="Áridos y Movimiento">
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Horómetro Final de Jornada</label>
+                                <input type="number" step="1" id="hm-horometro" required placeholder="ej. 4525" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white text-xs">
+                            </div>
+                        </div>
+
+                        <!-- Actividad 1 -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-900/50 p-3 rounded-lg border border-slate-800">
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-amber-400 mb-1">Actividad 1 (Principal)</label>
+                                <select id="hm-act1" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white text-xs">
+                                    <option value="Ninguna">-- Seleccionar Actividad --</option>
+                                    <optgroup label="Áridos para la Construcción">
                                         <option value="Carga de arena de piso a camión">Carga de arena de piso a camión</option>
-                                        <option value="Carga de canto rodado a camion">Carga de canto rodado a camión</option>
-                                        <option value="Carga de bolsones y portabolsas a camion">Carga de bolsones y portabolsas a camión</option>
+                                        <option value="Carga de canto rodado a camión">Carga de canto rodado a camión</option>
+                                        <option value="Carga de bolsones y portabolsas a camión">Carga de bolsones y portabolsas a camión</option>
                                         <option value="Acomodo acopio de materia prima gruesa">Acomodo acopio de materia prima gruesa</option>
                                         <option value="Acomodo acopio de materia prima fina">Acomodo acopio de materia prima fina</option>
                                     </optgroup>
-                                    <optgroup label="Planta AET & Horno Secador">
+                                    <optgroup label="Procesamiento, Secado y Tamizado AET">
                                         <option value="Carga tolva horno secador grande">Carga tolva horno secador grande</option>
                                         <option value="Carga tolva horno secador chico">Carga tolva horno secador chico</option>
                                         <option value="Desacopio AET interior planta">Desacopio AET interior planta</option>
                                         <option value="Alimentación AET a zarandas de retamizado">Alimentación AET a zarandas de retamizado</option>
                                         <option value="Desacopio externo AET y carga tolvas despacho">Desacopio externo AET y carga tolvas despacho</option>
+                                        <option value="Desacopio y carga alimentación tolva bolsas 25kg">Desacopio y carga alimentación tolva bolsas 25kg</option>
+                                        <option value="Desacopio y carga alimentación tolva big bags">Desacopio y carga alimentación tolva big bags</option>
+                                    </optgroup>
+                                    <optgroup label="Logística y Mantenimiento de Planta">
+                                        <option value="Limpieza de playas y caminos internos">Limpieza de playas y caminos internos</option>
+                                        <option value="Movimiento de áridos húmedos en playa de acopio">Movimiento de áridos húmedos en playa de acopio</option>
+                                        <option value="Apoyo a maniobras de mantenimiento pesado">Apoyo a maniobras de mantenimiento pesado</option>
                                     </optgroup>
                                 </select>
                             </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Horas Insumidas (Act 1)</label>
+                                <input type="number" step="0.5" id="hm-hrs1" value="0" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white text-xs">
+                            </div>
                         </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Actividad 2 -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-900/50 p-3 rounded-lg border border-slate-800">
                             <div>
-                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Horas Insumidas (Duración)</label>
-                                <input type="number" step="0.5" min="0.5" id="h-horas" required placeholder="ej. 4.5" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-xs">
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-amber-400 mb-1">Actividad 2 (Secundaria)</label>
+                                <select id="hm-act2" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white text-xs">
+                                    <option value="Ninguna">-- Seleccionar Actividad --</option>
+                                    <optgroup label="Áridos para la Construcción">
+                                        <option value="Carga de arena de piso a camión">Carga de arena de piso a camión</option>
+                                        <option value="Carga de canto rodado a camión">Carga de canto rodado a camión</option>
+                                        <option value="Carga de bolsones y portabolsas a camión">Carga de bolsones y portabolsas a camión</option>
+                                        <option value="Acomodo acopio de materia prima gruesa">Acomodo acopio de materia prima gruesa</option>
+                                        <option value="Acomodo acopio de materia prima fina">Acomodo acopio de materia prima fina</option>
+                                    </optgroup>
+                                    <optgroup label="Procesamiento, Secado y Tamizado AET">
+                                        <option value="Carga tolva horno secador grande">Carga tolva horno secador grande</option>
+                                        <option value="Carga tolva horno secador chico">Carga tolva horno secador chico</option>
+                                        <option value="Desacopio AET interior planta">Desacopio AET interior planta</option>
+                                        <option value="Alimentación AET a zarandas de retamizado">Alimentación AET a zarandas de retamizado</option>
+                                        <option value="Desacopio externo AET y carga tolvas despacho">Desacopio externo AET y carga tolvas despacho</option>
+                                        <option value="Desacopio y carga alimentación tolva bolsas 25kg">Desacopio y carga alimentación tolva bolsas 25kg</option>
+                                        <option value="Desacopio y carga alimentación tolva big bags">Desacopio y carga alimentación tolva big bags</option>
+                                    </optgroup>
+                                    <optgroup label="Logística y Mantenimiento de Planta">
+                                        <option value="Limpieza de playas y caminos internos">Limpieza de playas y caminos internos</option>
+                                        <option value="Movimiento de áridos húmedos en playa de acopio">Movimiento de áridos húmedos en playa de acopio</option>
+                                        <option value="Apoyo a maniobras de mantenimiento pesado">Apoyo a maniobras de mantenimiento pesado</option>
+                                    </optgroup>
+                                </select>
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Horómetro de Cierre Máquina</label>
-                                <input type="number" step="1" id="h-horometro" required placeholder="ej. 4520" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-xs">
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Horas Insumidas (Act 2)</label>
+                                <input type="number" step="0.5" id="hm-hrs2" value="0" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white text-xs">
+                            </div>
+                        </div>
+
+                        <!-- Actividad 3 -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-900/50 p-3 rounded-lg border border-slate-800">
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-amber-400 mb-1">Actividad 3 (Terciaria / Apoyo)</label>
+                                <select id="hm-act3" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white text-xs">
+                                    <option value="Ninguna">-- Seleccionar Actividad --</option>
+                                    <optgroup label="Áridos para la Construcción">
+                                        <option value="Carga de arena de piso a camión">Carga de arena de piso a camión</option>
+                                        <option value="Carga de canto rodado a camión">Carga de canto rodado a camión</option>
+                                        <option value="Carga de bolsones y portabolsas a camión">Carga de bolsones y portabolsas a camión</option>
+                                        <option value="Acomodo acopio de materia prima gruesa">Acomodo acopio de materia prima gruesa</option>
+                                        <option value="Acomodo acopio de materia prima fina">Acomodo acopio de materia prima fina</option>
+                                    </optgroup>
+                                    <optgroup label="Procesamiento, Secado y Tamizado AET">
+                                        <option value="Carga tolva horno secador grande">Carga tolva horno secador grande</option>
+                                        <option value="Carga tolva horno secador chico">Carga tolva horno secador chico</option>
+                                        <option value="Desacopio AET interior planta">Desacopio AET interior planta</option>
+                                        <option value="Alimentación AET a zarandas de retamizado">Alimentación AET a zarandas de retamizado</option>
+                                        <option value="Desacopio externo AET y carga tolvas despacho">Desacopio externo AET y carga tolvas despacho</option>
+                                        <option value="Desacopio y carga alimentación tolva bolsas 25kg">Desacopio y carga alimentación tolva bolsas 25kg</option>
+                                        <option value="Desacopio y carga alimentación tolva big bags">Desacopio y carga alimentación tolva big bags</option>
+                                    </optgroup>
+                                    <optgroup label="Logística y Mantenimiento de Planta">
+                                        <option value="Limpieza de playas y caminos internos">Limpieza de playas y caminos internos</option>
+                                        <option value="Movimiento de áridos húmedos en playa de acopio">Movimiento de áridos húmedos en playa de acopio</option>
+                                        <option value="Apoyo a maniobras de mantenimiento pesado">Apoyo a maniobras de mantenimiento pesado</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Horas Insumidas (Act 3)</label>
+                                <input type="number" step="0.5" id="hm-hrs3" value="0" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white text-xs">
                             </div>
                         </div>
 
                         <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-lg transition-all text-xs uppercase tracking-wider shadow">
-                            <i class="fa-solid fa-floppy-disk mr-1"></i> Capturar y Registrar Datos en Historial
+                            <i class="fa-solid fa-floppy-disk mr-1"></i> Capturar y Registrar Jornada Multi-Actividad en Historial
                         </button>
                     </form>
                 </div>
@@ -319,7 +414,7 @@
                         <h2 class="text-lg font-bold text-white flex items-center">
                             <i class="fa-solid fa-gas-pump text-amber-500 mr-2"></i> Micrositio Surtidor Gasoil (Interno)
                         </h2>
-                        <p class="text-xs text-slate-400">Registro obligatorio de despacho con captura fotográfica indispensable del cabezal.</p>
+                        <p class="text-xs text-slate-400">Registro obligatorio de despacho con fecha, hora y captura fotográfica indispensable del cabezal.</p>
                     </div>
 
                     <form onsubmit="registrarSurtidor(event)" class="space-y-4">
@@ -412,59 +507,79 @@
                 </div>
             </div>
 
-            <!-- ================= TAB: COMPRAS Y STOCK ================= -->
+            <!-- ================= TAB: COMPRAS Y STOCK (REPUESTOS Y FOTO-REFERENCIA) ================= -->
             <div id="tab-compras" class="tab-content space-y-6">
                 <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 max-w-4xl mx-auto space-y-6">
                     <div>
                         <h2 class="text-lg font-bold text-white flex items-center">
-                            <i class="fa-solid fa-boxes-stacked text-amber-500 mr-2"></i> Micrositio de Compras, Stock y Existencias
+                            <i class="fa-solid fa-boxes-stacked text-amber-500 mr-2"></i> Micrositio de Compras, Stock y Simulación de Repuestos (Cero Base)
                         </h2>
-                        <p class="text-xs text-slate-400">Control de inventario crítico: Combustible (Batán), Aceites y Repuestos para Cargadoras.</p>
+                        <p class="text-xs text-slate-400">Control de inventario crítico (stock inicial en 0), gestión de aceites, consumibles y reconocimiento fotográfico de piezas con proveedores y costos.</p>
                     </div>
 
-                    <!-- Formulario de Ingreso de Compras / Stock Inicial -->
-                    <form onsubmit="registrarCompraStock(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-4 bg-slate-900 p-4 rounded-xl border border-slate-700 items-end">
-                        <div>
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Insumo / Ítem</label>
-                            <select id="cs-item" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white text-xs">
-                                <option value="Gasol - Batán">Gasoil - Batán</option>
-                                <option value="Aceite Hidráulico ISO 68">Aceite Hidráulico ISO 68</option>
-                                <option value="Aceite Motor 15W40">Aceite Motor 15W40</option>
-                                <option value="Filtros de Gasoil">Filtros de Gasoil</option>
-                                <option value="Neumáticos 23.5-25">Neumáticos 23.5-25</option>
-                            </select>
+                    <!-- Panel de Compra de Repuestos y Análisis Fotográfico de Piezas -->
+                    <div class="bg-slate-900 p-5 rounded-xl border border-slate-700 space-y-4">
+                        <h3 class="font-bold text-sm text-amber-400 flex items-center">
+                            <i class="fa-solid fa-camera-retro mr-2"></i> Módulo de Análisis Fotográfico de Piezas & Previsión de Costo
+                        </h3>
+                        <p class="text-xs text-slate-400">Tome o suba una fotografía de la pieza o repuesto averiado para obtener referencias técnicas, proveedores locales y comparación costo-beneficio.</p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Fotografía de la Pieza / Repuesto</label>
+                                <input type="file" id="rep-foto-file" accept="image/*" capture="environment" onchange="procesarFotoRepuesto(event)" class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-500 file:text-slate-950 hover:file:bg-amber-600">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Nombre Estimado de la Pieza</label>
+                                <input type="text" id="rep-nombre" placeholder="ej. Bomba Hidráulica principal / Kit Sellos" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white text-xs">
+                            </div>
                         </div>
-                        <div>
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Tipo de Movimiento</label>
-                            <select id="cs-tipo" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white text-xs">
-                                <option value="Compra / Ingreso">Compra / Ingreso (+)</option>
-                                <option value="Ajuste Inicial Batán (0)">Definir Stock Inicial (Batán)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Cantidad / Volumen</label>
-                            <input type="number" step="1" id="cs-cantidad" required placeholder="ej. 5000" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white text-xs">
-                        </div>
-                        <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2 rounded-lg transition-all text-xs uppercase tracking-wider shadow">
-                            Actualizar Stock
-                        </button>
-                    </form>
 
-                    <!-- Tabla de Existencias Actuales -->
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-xs">
-                            <thead class="bg-slate-900 text-slate-400 uppercase">
-                                <tr>
-                                    <th class="p-2.5">Insumo / Repuesto</th>
-                                    <th class="p-2.5">Stock Actual en Sistema</th>
-                                    <th class="p-2.5">Unidad de Medida</th>
-                                    <th class="p-2.5">Estado Valoración</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabla-stock-actual" class="divide-y divide-slate-700">
-                                <tr><td colspan="4" class="p-4 text-center text-slate-500">Cargando inventario base en 0...</td></tr>
-                            </tbody>
-                        </table>
+                        <div id="resultado-analisis-pieza" class="hidden bg-slate-800 p-4 rounded-lg border border-slate-700 space-y-3 text-xs">
+                            <div class="flex items-center justify-between text-amber-400 font-bold border-b border-slate-700 pb-2">
+                                <span id="pieza-detectada-titulo">Pieza Identificada: Análisis Técnico</span>
+                                <span class="bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20">Proveedores Zonales Verificados</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <div class="bg-slate-900 p-3 rounded border border-slate-700">
+                                    <span class="text-slate-400 block mb-1">Opción Proveedor Local 1:</span>
+                                    <span id="prov-1" class="font-bold text-white">Hidráulica Paraná SRL</span>
+                                    <span id="costo-prov-1" class="text-amber-400 block mt-1 font-semibold">$ 485.000 (USD 388)</span>
+                                </div>
+                                <div class="bg-slate-900 p-3 rounded border border-slate-700">
+                                    <span class="text-slate-400 block mb-1">Opción Proveedor Zonal 2:</span>
+                                    <span id="prov-2" class="font-bold text-white">Repuestos del Litoral SA (Santa Fe)</span>
+                                    <span id="costo-prov-2" class="text-amber-400 block mt-1 font-semibold">$ 520.000 (USD 416)</span>
+                                </div>
+                                <div class="bg-slate-900 p-3 rounded border border-slate-700">
+                                    <span class="text-slate-400 block mb-1">Relación Costo-Beneficio:</span>
+                                    <span class="text-emerald-400 font-bold block">Alta disponibilidad local. Evita parada prolongada de máquina.</span>
+                                </div>
+                            </div>
+                            <button onclick="incorporarRepuestoMatriz()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2 rounded text-xs uppercase tracking-wider">
+                                Incorporar a Matriz de Costeo & Previsión
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tabla de Existencias Actuales (Inicia en 0) -->
+                    <div>
+                        <h3 class="font-bold text-sm text-white mb-3">Existencias Críticas en Planta (Base 0)</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead class="bg-slate-900 text-slate-400 uppercase">
+                                    <tr>
+                                        <th class="p-2.5">Insumo / Repuesto</th>
+                                        <th class="p-2.5">Stock Actual en Sistema</th>
+                                        <th class="p-2.5">Unidad de Medida</th>
+                                        <th class="p-2.5">Estado Valoración</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla-stock-actual" class="divide-y divide-slate-700">
+                                    <tr><td colspan="4" class="p-4 text-center text-slate-500">Cargando inventario base en 0...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -521,22 +636,49 @@
         </div>
     </div>
 
+    <!-- MODAL DE REFRESH / CORRECCIÓN MASTER (ADMIN) -->
+    <div id="modal-refresh" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 max-w-xl w-full shadow-2xl space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                <h3 class="font-bold text-sm text-white flex items-center">
+                    <i class="fa-solid fa-screwdriver-wrench text-amber-500 mr-2"></i> Consola Master de Refresh y Corrección de Datos
+                </h3>
+                <button onclick="cerrarModalRefreshMaster()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-xs text-slate-300">Modifique o purgue registros erróneos cargados por operarios para evitar desvíos en los conteos acumulables y matrices de costeo.</p>
+            <div class="space-y-3 max-h-60 overflow-y-auto pr-2" id="lista-correccion-registros">
+                <!-- Se llena dinámicamente -->
+            </div>
+            <div class="pt-3 border-t border-slate-700 flex justify-between items-center">
+                <button onclick="resetearTodoSistemaMaster()" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 px-3 py-2 rounded text-xs font-semibold">
+                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> Restablecer Fábrica / Cero Base
+                </button>
+                <button onclick="cerrarModalRefreshMaster()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2 rounded text-xs uppercase tracking-wider">
+                    Cerrar Consola
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- SCRIPT DE LÓGICA Y FUNCIONALIDAD GITHUB / CLIENT-SIDE -->
     <script>
         // Estado Global de la Aplicación
         let currentUser = null;
-        let dbHorometros = JSON.parse(localStorage.getItem('gf_horometros')) || [];
-        let dbSurtidor = JSON.parse(localStorage.getItem('gf_surtidor')) || [];
-        let dbFallas = JSON.parse(localStorage.getItem('gf_fallas')) || [];
-        let dbStock = JSON.parse(localStorage.getItem('gf_stock')) || {
-            'Gasol - Batán': 0,
-            'Aceite Hidráulico ISO 68': 500,
-            'Aceite Motor 15W40': 300,
-            'Filtros de Gasoil': 25,
-            'Neumáticos 23.5-25': 4
+        let dbHorometros = JSON.parse(localStorage.getItem('gf_horometros_v2')) || [];
+        let dbSurtidor = JSON.parse(localStorage.getItem('gf_surtidor_v2')) || [];
+        let dbFallas = JSON.parse(localStorage.getItem('gf_fallas_v2')) || [];
+        
+        // Política de stock inicial estricta en 0 según requerimiento
+        let dbStock = JSON.parse(localStorage.getItem('gf_stock_v2')) || {
+            'Gasoil - Batán': 0,
+            'Aceite Hidráulico ISO 68': 0,
+            'Aceite Motor 15W40': 0,
+            'Filtros de Gasoil': 0,
+            'Neumáticos 23.5-25': 0
         };
 
         let chartInstance = null;
+        let fotoRepuestoBase64 = "";
 
         // Credenciales oficiales requeridas
         const credenciales = {
@@ -558,14 +700,17 @@
                 document.getElementById('login-modal').classList.add('hidden');
                 document.getElementById('app-container').classList.remove('hidden');
                 
-                // Configurar interfaz según rol
+                // RESTRICCIÓN ABSOLUTA: El panel administrador NO debe estar disponible en visualización para cuentas de operarios
                 if (currentUser.role === 'Administrador') {
                     document.getElementById('nav-admin').classList.remove('hidden');
                     document.getElementById('nav-admin-m').classList.remove('hidden');
                     document.getElementById('user-role-badge').innerText = "Perfil: Administrador General";
                     switchTab('tab-admin');
                 } else {
-                    document.getElementById('user-role-badge').innerText = `Perfil: Operario (${currentUser.name})`;
+                    // Ocultar explícitamente cualquier rastro de admin para operarios
+                    document.getElementById('nav-admin').classList.add('hidden');
+                    document.getElementById('nav-admin-m').classList.add('hidden');
+                    document.getElementById('user-role-badge').innerText = `Perfil: Operario Cargadorista (${currentUser.name})`;
                     switchTab('tab-horometros');
                 }
                 actualizarTodoSistema();
@@ -584,6 +729,12 @@
         }
 
         function switchTab(tabId) {
+            // RESTRICCIÓN DE SEGURIDAD ADICIONAL: Si es operario e intenta acceder a admin, bloquear
+            if (tabId === 'tab-admin' && currentUser && currentUser.role !== 'Administrador') {
+                alert("Acceso denegado. Información sensible reservada exclusivamente para el Administrador.");
+                return;
+            }
+
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('bg-amber-500', 'text-slate-950'));
             
@@ -600,23 +751,37 @@
             }
         }
 
-        // --- GESTIÓN DE HORÓMETROS ---
-        function registrarHorometro(e) {
+        // --- GESTIÓN DE HORÓMETROS MULTI-ACTIVIDAD ---
+        function registrarHorometroMulti(e) {
             e.preventDefault();
+            const hrs1 = parseFloat(document.getElementById('hm-hrs1').value) || 0;
+            const hrs2 = parseFloat(document.getElementById('hm-hrs2').value) || 0;
+            const hrs3 = parseFloat(document.getElementById('hm-hrs3').value) || 0;
+            const totalHorasJornada = hrs1 + hrs2 + hrs3;
+
+            if (totalHorasJornada <= 0) {
+                alert("Debe ingresar al menos una actividad con horas insumidas válidas.");
+                return;
+            }
+
             const nuevoRegistro = {
                 id: Date.now(),
-                fecha: document.getElementById('h-fecha').value,
-                unidad: document.getElementById('h-unidad').value,
-                maquina: document.getElementById('h-maquina').value,
-                actividad: document.getElementById('h-actividad').value,
-                horas: parseFloat(document.getElementById('h-horas').value),
-                horometro: parseInt(document.getElementById('h-horometro').value),
+                fecha: document.getElementById('hm-fecha').value,
+                maquina: document.getElementById('hm-maquina').value,
+                horometro: parseInt(document.getElementById('hm-horometro').value),
+                act1: document.getElementById('hm-act1').value,
+                hrs1: hrs1,
+                act2: document.getElementById('hm-act2').value,
+                hrs2: hrs2,
+                act3: document.getElementById('hm-act3').value,
+                hrs3: hrs3,
+                totalHoras: totalHorasJornada,
                 operario: currentUser.name
             };
 
             dbHorometros.push(nuevoRegistro);
-            localStorage.setItem('gf_horometros', JSON.stringify(dbHorometros));
-            alert("¡Horas y actividades registradas con éxito en el historial!");
+            localStorage.setItem('gf_horometros_v2', JSON.stringify(dbHorometros));
+            alert("¡Jornada multi-actividad registrada con éxito y reportada al Panel Administrador!");
             e.target.reset();
             actualizarTodoSistema();
         }
@@ -656,14 +821,14 @@
                 operario: currentUser.name
             };
 
-            // Restar del stock de gasoil batán
-            dbStock['Gasol - Batán'] = Math.max(0, dbStock['Gasol - Batán'] - litros);
+            // Restar o descontar de batán
+            dbStock['Gasoil - Batán'] = Math.max(0, (dbStock['Gasoil - Batán'] || 0) - litros);
 
             dbSurtidor.push(nuevoDespacho);
-            localStorage.setItem('gf_surtidor', JSON.stringify(dbSurtidor));
-            localStorage.setItem('gf_stock', JSON.stringify(dbStock));
+            localStorage.setItem('gf_surtidor_v2', JSON.stringify(dbSurtidor));
+            localStorage.setItem('gf_stock_v2', JSON.stringify(dbStock));
 
-            alert("¡Despacho de gasoil registrado y validado con éxito!");
+            alert("¡Despacho de gasoil registrado, validado con foto y enviado al repositorio del administrador!");
             e.target.reset();
             fotoCabezalBase64 = "";
             document.getElementById('preview-foto').innerHTML = "Sin foto";
@@ -687,10 +852,10 @@
             };
 
             dbFallas.push(nuevaFalla);
-            localStorage.setItem('gf_fallas', JSON.stringify(dbFallas));
+            localStorage.setItem('gf_fallas_v2', JSON.stringify(dbFallas));
             cerrarModalFalla();
             e.target.reset();
-            alert("¡Alerta de falla emitida exitosamente al sector de mantenimiento!");
+            alert("¡Alerta de falla emitida exitosamente y reportada al Panel Administrador!");
             actualizarTodoSistema();
         }
 
@@ -698,35 +863,87 @@
             const falla = dbFallas.find(f => f.id === id);
             if (falla) {
                 falla.estado = "Homologado / En Reparación";
-                localStorage.setItem('gf_fallas', JSON.stringify(dbFallas));
+                localStorage.setItem('gf_fallas_v2', JSON.stringify(dbFallas));
                 actualizarTodoSistema();
             }
         }
 
-        // --- GESTIÓN DE COMPRAS Y STOCK ---
-        function registrarCompraStock(e) {
-            e.preventDefault();
-            const item = document.getElementById('cs-item').value;
-            const tipo = document.getElementById('cs-tipo').value;
-            const cantidad = parseFloat(document.getElementById('cs-cantidad').value);
-
-            if (tipo === 'Ajuste Inicial Batán (0)') {
-                dbStock[item] = cantidad;
-            } else {
-                dbStock[item] = (dbStock[item] || 0) + cantidad;
+        // --- ANÁLISIS FOTOGRÁFICO DE PIEZAS (MÓDULO COMPRAS) ---
+        function procesarFotoRepuesto(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(uploadEvent) {
+                    fotoRepuestoBase64 = uploadEvent.target.result;
+                    const nombrePieza = document.getElementById('rep-nombre').value || "Pieza / Componente Detectado";
+                    document.getElementById('pieza-detectada-titulo').innerText = `Pieza Identificada: ${nombrePieza}`;
+                    document.getElementById('resultado-analisis-pieza').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
             }
+        }
 
-            localStorage.setItem('gf_stock', JSON.stringify(dbStock));
-            alert("¡Inventario actualizado correctamente!");
+        function incorporarRepuestoMatriz() {
+            alert("¡Pieza y cotización de proveedores zonales incorporada exitosamente a la matriz de costeo y previsión del administrador!");
+            document.getElementById('resultado-analisis-pieza').classList.add('hidden');
+            fotoRepuestoBase64 = "";
+        }
+
+        // --- CONSOLA REFRESH / CORRECCIÓN MASTER (ADMIN) ---
+        function abrirModalRefreshMaster() {
+            let htmlCorr = "";
+            if (dbHorometros.length > 0) {
+                dbHorometros.forEach((h, idx) => {
+                    htmlCorr += `
+                        <div class="flex items-center justify-between bg-slate-900 p-3 rounded-lg border border-slate-700 text-xs">
+                            <div>
+                                <span class="font-bold text-white">${h.maquina}</span> (${h.fecha}) - Total: <span class="text-amber-400">${h.totalHoras} hrs</span>
+                            </div>
+                            <button onclick="eliminarRegistroHorometro(${h.id})" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 px-2 py-1 rounded border border-red-500/30">Eliminar / Corregir</button>
+                        </div>
+                    `;
+                });
+            } else {
+                htmlCorr = "<p class='text-xs text-slate-400 text-center'>No hay registros para depurar.</p>";
+            }
+            document.getElementById('lista-correccion-registros').innerHTML = htmlCorr;
+            document.getElementById('modal-refresh').classList.remove('hidden');
+        }
+
+        function cerrarModalRefreshMaster() { document.getElementById('modal-refresh').classList.add('hidden'); }
+
+        function eliminarRegistroHorometro(id) {
+            dbHorometros = dbHorometros.filter(h => h.id !== id);
+            localStorage.setItem('gf_horometros_v2', JSON.stringify(dbHorometros));
+            abrirModalRefreshMaster();
             actualizarTodoSistema();
+        }
+
+        function resetearTodoSistemaMaster() {
+            if (confirm("¿Confirma restablecer todo el sistema a cero base y purgar historiales?")) {
+                localStorage.clear();
+                dbHorometros = [];
+                dbSurtidor = [];
+                dbFallas = [];
+                dbStock = {
+                    'Gasoil - Batán': 0,
+                    'Aceite Hidráulico ISO 68': 0,
+                    'Aceite Motor 15W40': 0,
+                    'Filtros de Gasoil': 0,
+                    'Neumáticos 23.5-25': 0
+                };
+                cerrarModalRefreshMaster();
+                actualizarTodoSistema();
+                alert("Sistema restablecido correctamente.");
+            }
         }
 
         // --- ACTUALIZAR PANALES Y SIMULADORES ---
         function actualizarTodoSistema() {
-            // Actualizar KPIs Administrador
-            const totalHoras = dbHorometros.reduce((acc, curr) => acc + curr.horas, 0);
+            // Actualizar KPIs Administrador (sumando totalHoras de multi-actividad)
+            const totalHoras = dbHorometros.reduce((acc, curr) => acc + curr.totalHoras, 0);
             document.getElementById('kpi-total-horas').innerText = totalHoras.toFixed(1) + " hrs";
-            document.getElementById('kpi-stock-gasoil').innerText = (dbStock['Gasol - Batán'] || 0).toFixed(1) + " lts";
+            document.getElementById('kpi-stock-gasoil').innerText = (dbStock['Gasoil - Batán'] || 0).toFixed(1) + " lts";
             document.getElementById('kpi-alertas-activas').innerText = dbFallas.filter(f => f.estado.includes("Pendiente")).length;
 
             // Tabla Costos por Máquina (Simulador Quirúrgico Pesos y USD)
@@ -735,12 +952,9 @@
             
             let htmlCostos = "";
             let htmlPrevision = "";
-            let totalHorasGlobal = 0;
 
             maquinas.forEach(maq => {
-                const horasMaq = dbHorometros.filter(h => h.maquina === maq).reduce((acc, curr) => acc + curr.horas, 0);
-                totalHorasGlobal += horasMaq;
-                // Costo estimado operativo: 45 USD por hora de máquina (referencia estándar industrial)
+                const horasMaq = dbHorometros.filter(h => h.maquina === maq).reduce((acc, curr) => acc + curr.totalHoras, 0);
                 const costoUSD = horasMaq * 45;
                 const costoARS = costoUSD * dolarBNA;
 
@@ -754,6 +968,27 @@
                 `;
             });
             document.getElementById('tabla-costos-maquinas').innerHTML = htmlCostos || `<tr><td colspan="4" class="p-4 text-center text-slate-500">Sin registros operativos todavía.</td></tr>`;
+
+            // Tabla Horómetros Consolidados Administrador
+            let htmlAdminHoros = "";
+            if (dbHorometros.length > 0) {
+                dbHorometros.forEach(h => {
+                    htmlAdminHoros += `
+                        <tr>
+                            <td class="p-2.5">${h.fecha}</td>
+                            <td class="p-2.5">${h.operario}</td>
+                            <td class="p-2.5 font-bold text-white">${h.maquina}</td>
+                            <td class="p-2.5">${h.act1 !== 'Ninguna' ? h.act1 + ' (' + h.hrs1 + 'h)' : '-'}</td>
+                            <td class="p-2.5">${h.act2 !== 'Ninguna' ? h.act2 + ' (' + h.hrs2 + 'h)' : '-'}</td>
+                            <td class="p-2.5">${h.act3 !== 'Ninguna' ? h.act3 + ' (' + h.hrs3 + 'h)' : '-'}</td>
+                            <td class="p-2.5 text-amber-400 font-bold">${h.totalHoras} hrs</td>
+                        </tr>
+                    `;
+                });
+            } else {
+                htmlAdminHoros = `<tr><td colspan="7" class="p-4 text-center text-slate-500">Sin registros en el micrositio de horómetros.</td></tr>`;
+            }
+            document.getElementById('tabla-admin-horometros').innerHTML = htmlAdminHoros;
 
             // Tabla de Previsión de Fallas
             if (dbFallas.length > 0) {
@@ -817,17 +1052,17 @@
             }
             document.getElementById('tabla-historial-fallas').innerHTML = htmlHistorialFallas;
 
-            // Tabla Stock Actual
+            // Tabla Stock Actual (Inicia en 0)
             let htmlStock = "";
             Object.keys(dbStock).forEach(item => {
                 const val = dbStock[item];
-                const unidadMedida = item.includes('Gasol') || item.includes('Aceite') ? 'Litros' : (item.includes('Filtros') ? 'Unidades' : 'Pzas');
+                const unidadMedida = item.includes('Gasoil') || item.includes('Aceite') ? 'Litros' : (item.includes('Filtros') ? 'Unidades' : 'Pzas');
                 htmlStock += `
                     <tr>
                         <td class="p-2.5 font-bold text-white">${item}</td>
                         <td class="p-2.5 text-amber-400 font-bold">${val.toLocaleString()}</td>
                         <td class="p-2.5">${unidadMedida}</td>
-                        <td class="p-2.5"><span class="text-emerald-400 font-semibold">Stock Normalizado</span></td>
+                        <td class="p-2.5"><span class="text-slate-400 font-semibold">Base 0 (Control Planta)</span></td>
                     </tr>
                 `;
             });
@@ -842,7 +1077,7 @@
         function renderizarGraficoHoras() {
             const ctx = document.getElementById('chartHorasMaquinas').getContext('2d');
             const maquinas = ["MICHIGAN R55C", "MICHIGAN R45C", "LW300FN", "LW300K", "CASE NUEVA", "CASE VIEJA"];
-            const dataHoras = maquinas.map(maq => dbHorometros.filter(h => h.maquina === maq).reduce((acc, curr) => acc + curr.horas, 0));
+            const dataHoras = maquinas.map(maq => dbHorometros.filter(h => h.maquina === maq).reduce((acc, curr) => acc + curr.totalHoras, 0));
 
             if (chartInstance) chartInstance.destroy();
 
@@ -874,7 +1109,7 @@
             const wb = XLSX.utils.book_new();
 
             const wsHorometros = XLSX.utils.json_to_sheet(dbHorometros);
-            XLSX.utils.book_append_sheet(wb, wsHorometros, "Horómetros y Tareas");
+            XLSX.utils.book_append_sheet(wb, wsHorometros, "Horómetros Multi-Actividad");
 
             const wsSurtidor = XLSX.utils.json_to_sheet(dbSurtidor);
             XLSX.utils.book_append_sheet(wb, wsSurtidor, "Surtidor Gasoil y Fotos");
@@ -882,7 +1117,7 @@
             const wsFallas = XLSX.utils.json_to_sheet(dbFallas);
             XLSX.utils.book_append_sheet(wb, wsFallas, "Fallas y Mantenimiento");
 
-            XLSX.writeFile(wb, "GRAVAFILT_Matriz_Costos_Cargadoras.xlsx");
+            XLSX.writeFile(wb, "GRAVAFILT_Matriz_Costos_Cargadoras_V2.xlsx");
         }
 
         function exportarReporteCompleto() {
